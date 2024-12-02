@@ -2,6 +2,7 @@
 @model User.Presentation.Pages.Shared.LoginModel
 @{
     Layout = null;
+    var errorMessage = TempData["InvalidUser"] as string;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -95,10 +96,12 @@
 </head>
 <body>
     <div class="login-container">
-        <div asp-validation-summary="ModelOnly"
-             style="text-decoration: none;"
-             class="alert alert-danger pb-0" role="alert">
-        </div>
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger">
+                @errorMessage
+            </div>
+        }
         <h1>Login</h1>
         <form  method="POST">
             <div class="form-group">
