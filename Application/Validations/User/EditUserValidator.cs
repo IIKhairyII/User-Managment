@@ -31,6 +31,7 @@ namespace Application.Validations.User
 
             RuleFor(x => x).Must(u => u.Password.Equals(u.ConfirmPassword))
                 .WithMessage("Passwords don't match")
+                .WithName("MathcPasswords")
                  .When(u => u.Password != null && u.ConfirmPassword != null);
         }
     }
