@@ -23,7 +23,13 @@ namespace Application.Validations.User
                 .NotNull()
                 .WithMessage("First is required");
 
-            RuleFor(x => x).Must(u => u.Password!.Equals(u.ConfirmPassword!))
+            RuleFor(x => x)
+                .Must(u => string.IsNullOrEmpty(u.Password) && string.IsNullOrEmpty(u.ConfirmPassword) ||
+               (!string.IsNullOrEmpty(u.Password) && !string.IsNullOrEmpty(u.ConfirmPassword)))
+                .WithMessage("Both Password and ConfirmPassword must be provided, or both must be empty.")
+                .WithName("Passwords");
+
+            RuleFor(x => x).Must(u => u.Password.Equals(u.ConfirmPassword))
                 .WithMessage("Passwords don't match")
                  .When(u => u.Password != null && u.ConfirmPassword != null);
         }

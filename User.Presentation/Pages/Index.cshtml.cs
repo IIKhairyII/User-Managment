@@ -22,7 +22,9 @@ namespace User.Presentation.Pages
 
         public async Task<IActionResult> OnGet(long id)
         {
-            
+            TempData["Failure"] = null;
+            TempData["Success"] = null;
+
             if (id < 1)
                 return RedirectToPage("/Shared/Login");
             UserDto = await _mediator.Send(new GetProfileByIdQueryDto() { Id = id});
@@ -39,7 +41,14 @@ namespace User.Presentation.Pages
             {
                 if (!ModelState.IsValid)
                     return Page();
-                await _mediator.Send(new EditProfileCommandDto() { userDto = UserDto });
+
+                TempData["Failure"] = null;
+                TempData["Success"] = null;
+                var result  = await _mediator.Send(new EditProfileCommandDto() { userDto = UserDto });
+                if(result is null)
+                    TempData["Failure"] = "Error while updating....try again!!";
+                else
+                    TempData["Success"] = "Updated Successfully";
                 return Page();
             }
             catch (Exception ex) {

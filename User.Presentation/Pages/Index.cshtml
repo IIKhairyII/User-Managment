@@ -2,10 +2,24 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+
+    var successMessage = TempData["Success"] as string;
+    var failureMessage = TempData["Failure"] as string;
 }
 <div class="text-center">
     <h3 class="display-4">Welcome @Model.UserDto.FirstName  @Model.UserDto.LastName</h3>
-
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <div class="alert alert-success">
+            @successMessage
+        </div>
+    }
+    @if (!string.IsNullOrEmpty(failureMessage))
+    {
+        <div class="alert alert-success">
+            @failureMessage
+        </div>
+    }
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -45,13 +59,19 @@
 
                             <div class="mb-1 d-flex flex-column align-items-start">
                                 <label asp-for="UserDto.Password" class="form-label"></label>
-                                <input asp-for="UserDto.Password" type="password" class="form-control @(ModelState.ContainsKey("UserDto.Password") && ModelState["UserDto.Password"].Errors.Any() ? "is-invalid" : "")" value="" />
+                                <input asp-for="UserDto.Password" type="password" class="form-control @((ModelState.ContainsKey("UserDto.Password") && ModelState["UserDto.Password"].Errors.Any()) ||
+        (ModelState.ContainsKey("UserDto.Passwords") && ModelState["UserDto.Passwords"].Errors.Any())? "is-invalid" : "")" value="" />
                                 <span class="invalid-feedback text-start" asp-validation-for="UserDto.Password"></span>
                             </div>
                             <div class="mb-1 d-flex flex-column align-items-start">
                                 <label asp-for="UserDto.ConfirmPassword" class="form-label">Confirm Password</label>
-                                <input asp-for="UserDto.ConfirmPassword" type="password" class="form-control @(ModelState.ContainsKey("UserDto.Password") && ModelState["UserDto.Password"].Errors.Any() ? "is-invalid" : "")" value="" />
+                                <input asp-for="UserDto.ConfirmPassword" type="password" class="form-control @((ModelState.ContainsKey("UserDto.Password") && ModelState["UserDto.Password"].Errors.Any()) ||
+                                (ModelState.ContainsKey("UserDto.Passwords") && ModelState["UserDto.Passwords"].Errors.Any()) ? "is-invalid" : "")" value="" />
                                 <span class="invalid-feedback text-start" asp-validation-for="UserDto.ConfirmPassword"></span>
+                                @if (ModelState.ContainsKey("UserDto.Passwords") && ModelState["UserDto.Passwords"].Errors.Any())
+                                {
+                                    <span class="invalid-feedback text-start">@ModelState["UserDto.Passwords"].Errors.FirstOrDefault().ErrorMessage</span>
+                                }
                             </div>
                             <div class="mb-1 d-flex flex-column align-items-start">
                                 <label asp-for="UserDto.Phone" class="form-label"></label>

@@ -34,7 +34,7 @@ namespace User.Presentation.Pages.Shared
                 if (!ModelState.IsValid)
                     return Page();
                 var user = await _mediator.Send(UserDto);
-             if (user is null)
+                if (user is null)
                 {
                     TempData["InvalidUser"] = "User wasn't found... Make sure you inserted correct credentials!";
                     return RedirectToPage("/Shared/Login");
