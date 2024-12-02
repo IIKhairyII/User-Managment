@@ -1,0 +1,72 @@
+﻿@page "{id:int?}"
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<div class="text-center">
+    <h3 class="display-4">Welcome @Model.UserDto.FirstName  @Model.UserDto.LastName</h3>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Edit User Information</h4>
+                    </div>
+                    <div asp-validation-summary="ModelOnly"
+                         style="text-decoration: none;"
+                         class="alert alert-danger pb-0" role="alert">
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            <div class="mb-1 d-flex flex-column align-items-start">
+                                <label asp-for="UserDto.FirstName" class="form-label"></label>
+                                <input asp-for="UserDto.FirstName" class="form-control @(ModelState.ContainsKey("UserDto.FirstName") && ModelState["UserDto.FirstName"].Errors.Any() ? "is-invalid" : "")" />
+                                <span class="invalid-feedback text-start" asp-validation-for="UserDto.FirstName"></span>
+                            </div>
+
+                            <div class="mb-1 d-flex flex-column align-items-start">
+                                <label asp-for="UserDto.LastName" class="form-label"></label>
+                                <input asp-for="UserDto.LastName" class="form-control @(ModelState.ContainsKey("UserDto.LastName") && ModelState["UserDto.LastName"].Errors.Any() ? "is-invalid" : "")" />
+                                <span class="invalid-feedback text-start" asp-validation-for="UserDto.LastName"></span>
+                            </div>
+
+                            <div class="mb-1 d-flex flex-column align-items-start">
+                                <label asp-for="UserDto.UserName" class="form-label"></label>
+                                <input asp-for="UserDto.UserName" type="text" class="form-control @(ModelState.ContainsKey("UserDto.UserName") && ModelState["UserDto.UserName"].Errors.Any()? "is-invalid" : "")" />
+                                <span class="invalid-feedback text-start" asp-validation-for="UserDto.UserName"></span>
+                            </div>
+
+                            <div class="mb-1 d-flex flex-column align-items-start">
+                                <label asp-for="UserDto.Email" class="form-label"></label>
+                                <input asp-for="UserDto.Email" type="email" class="form-control @(ModelState.ContainsKey("UserDto.Email") && ModelState["UserDto.Email"].Errors.Any() ? "is-invalid" : "")" />
+                                <span class="invalid-feedback text-start" asp-validation-for="UserDto.Email"></span>
+                            </div>
+
+                            <div class="mb-1 d-flex flex-column align-items-start">
+                                <label asp-for="UserDto.Password" class="form-label"></label>
+                                <input asp-for="UserDto.Password" type="password" class="form-control @(ModelState.ContainsKey("UserDto.Password") && ModelState["UserDto.Password"].Errors.Any() ? "is-invalid" : "")" value="" />
+                                <span class="invalid-feedback text-start" asp-validation-for="UserDto.Password"></span>
+                            </div>
+                            <div class="mb-1 d-flex flex-column align-items-start">
+                                <label asp-for="UserDto.ConfirmPassword" class="form-label">Confirm Password</label>
+                                <input asp-for="UserDto.ConfirmPassword" type="password" class="form-control @(ModelState.ContainsKey("UserDto.Password") && ModelState["UserDto.Password"].Errors.Any() ? "is-invalid" : "")" value="" />
+                                <span class="invalid-feedback text-start" asp-validation-for="UserDto.ConfirmPassword"></span>
+                            </div>
+                            <div class="mb-1 d-flex flex-column align-items-start">
+                                <label asp-for="UserDto.Phone" class="form-label"></label>
+                                <input asp-for="UserDto.Phone" type="tel" class="form-control @(ModelState.ContainsKey("UserDto.Phone") && ModelState["UserDto.Phone"].Errors.Any() ? "is-invalid" : "")" />
+                                <span class="invalid-feedback text-start" asp-validation-for="UserDto.Phone"></span>
+                            </div>
+
+                            <input hidden asp-for="UserDto.Id" type="text" class="form-control" />
+                            <div class="d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
