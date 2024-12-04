@@ -5,6 +5,7 @@
 
     var successMessage = TempData["Success"] as string;
     var failureMessage = TempData["Failure"] as string;
+    Model.UserDto.IsRegsiter = false;
 }
 <div class="text-center">
     <h3 class="display-4">Welcome @Model.UserDto.FirstName  @Model.UserDto.LastName</h3>
@@ -35,24 +36,24 @@
                         <form method="post">
                             <div class="mb-1 d-flex flex-column align-items-start">
                                 <label asp-for="UserDto.FirstName" class="form-label"></label>
-                                <input asp-for="UserDto.FirstName" class="form-control @(ModelState.ContainsKey("UserDto.FirstName") && ModelState["UserDto.FirstName"].Errors.Any() ? "is-invalid" : "")" />
+                                <input asp-for="UserDto.FirstName" required class="form-control @(ModelState.ContainsKey("UserDto.FirstName") && ModelState["UserDto.FirstName"].Errors.Any() ? "is-invalid" : "")" />
                                 <span class="invalid-feedback text-start" asp-validation-for="UserDto.FirstName"></span>
                             </div>
 
                             <div class="mb-1 d-flex flex-column align-items-start">
-                                <label asp-for="UserDto.LastName" class="form-label"></label>
+                                <label asp-for="UserDto.LastName" required class="form-label"></label>
                                 <input asp-for="UserDto.LastName" class="form-control @(ModelState.ContainsKey("UserDto.LastName") && ModelState["UserDto.LastName"].Errors.Any() ? "is-invalid" : "")" />
                                 <span class="invalid-feedback text-start" asp-validation-for="UserDto.LastName"></span>
                             </div>
 
                             <div class="mb-1 d-flex flex-column align-items-start">
-                                <label asp-for="UserDto.UserName" class="form-label"></label>
+                                <label asp-for="UserDto.UserName" required class="form-label"></label>
                                 <input asp-for="UserDto.UserName" type="text" class="form-control @(ModelState.ContainsKey("UserDto.UserName") && ModelState["UserDto.UserName"].Errors.Any()? "is-invalid" : "")" />
                                 <span class="invalid-feedback text-start" asp-validation-for="UserDto.UserName"></span>
                             </div>
 
                             <div class="mb-1 d-flex flex-column align-items-start">
-                                <label asp-for="UserDto.Email" class="form-label"></label>
+                                <label asp-for="UserDto.Email" required class="form-label"></label>
                                 <input asp-for="UserDto.Email" type="email" class="form-control @(ModelState.ContainsKey("UserDto.Email") && ModelState["UserDto.Email"].Errors.Any() ? "is-invalid" : "")" />
                                 <span class="invalid-feedback text-start" asp-validation-for="UserDto.Email"></span>
                             </div>
@@ -84,6 +85,7 @@
                             </div>
 
                             <input hidden asp-for="UserDto.Id" type="text" class="form-control" />
+                            <input type="hidden" asp-for="UserDto.IsRegsiter" value="false" />
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
                             </div>

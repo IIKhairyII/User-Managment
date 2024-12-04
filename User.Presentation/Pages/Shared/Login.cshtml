@@ -3,6 +3,7 @@
 @{
     Layout = null;
     var errorMessage = TempData["InvalidUser"] as string;
+    var registerMessage = TempData["Registered"] as string;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +20,12 @@
         {
             <div class="alert alert-danger">
                 @errorMessage
+            </div>
+        } 
+        @if (!string.IsNullOrEmpty(registerMessage))
+        {
+            <div class="alert alert-success">
+                @registerMessage
             </div>
         }
         <h1>Login</h1>

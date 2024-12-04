@@ -1,6 +1,6 @@
 ﻿using Application.Repositories;
 using Application.Requests.User.Queries;
-using Application.Responses.User;
+using Application.DTOs.User;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

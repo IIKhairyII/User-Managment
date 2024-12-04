@@ -1,4 +1,4 @@
-﻿using Application.Responses.User;
+﻿using Application.DTOs.User;
 using FluentValidation;
 
 namespace Application.Validations.User
@@ -21,18 +21,36 @@ namespace Application.Validations.User
             RuleFor(x => x.FirstName)
                 .NotEmpty()
                 .NotNull()
-                .WithMessage("First is required");
+                .WithMessage("First Name is required");
+
+            RuleFor(x => x.Password)
+                .NotEmpty()
+                .NotNull()
+                .WithMessage("Password is required")
+                .When(u => u.IsRegsiter);
+
+            RuleFor(x => x.ConfirmPassword)
+                .NotEmpty()
+                .NotNull()
+                .WithMessage("Confirm Password is required")
+                 .When(u => u.IsRegsiter);
 
             RuleFor(x => x)
                 .Must(u => string.IsNullOrEmpty(u.Password) && string.IsNullOrEmpty(u.ConfirmPassword) ||
                (!string.IsNullOrEmpty(u.Password) && !string.IsNullOrEmpty(u.ConfirmPassword)))
-                .WithMessage("Both Password and ConfirmPassword must be provided, or both must be empty.")
-                .WithName("Passwords");
+                .WithMessage("Both Password and Confirm Password must be provided, or both must be empty.")
+                .WithName("Passwords")
+                .When(u => !u.IsRegsiter);
+
+
 
             RuleFor(x => x).Must(u => u.Password.Equals(u.ConfirmPassword))
                 .WithMessage("Passwords don't match")
                 .WithName("MathcPasswords")
                  .When(u => u.Password != null && u.ConfirmPassword != null);
+
+
+
         }
     }
 }

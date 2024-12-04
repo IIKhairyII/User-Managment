@@ -1,4 +1,4 @@
-﻿namespace Application.Responses.User
+﻿namespace Application.DTOs.User
 {
     public class UserDto
     {
@@ -11,5 +11,6 @@
         public string LastName { get; set; }
         public string? Phone { get; set; }
         public string? ImgPath { get; set; }
+        public bool IsRegsiter { get; set; } = false;
     }
 }

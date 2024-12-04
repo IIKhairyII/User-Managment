@@ -1,6 +1,6 @@
 ﻿using Application.Requests.User.Commands;
 using Application.Requests.User.Queries;
-using Application.Responses.User;
+using Application.DTOs.User;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -13,7 +13,7 @@ namespace User.Presentation.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IMediator _mediator;
 
-        public UserDto? UserDto { get; set; }
+        public UserDto UserDto { get; set; }
         public IndexModel(ILogger<IndexModel> logger, IMediator mediator)
         {
             _logger = logger;
@@ -27,6 +27,7 @@ namespace User.Presentation.Pages
 
             if (id < 1)
                 return RedirectToPage("/Shared/Login");
+
             UserDto = await _mediator.Send(new GetProfileByIdQueryDto() { Id = id});
 
             if(UserDto is null)

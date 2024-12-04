@@ -7,8 +7,8 @@ namespace Application.MappingProfiles.User
 
         public UserProfile()
         {
-            CreateMap<Domain.Entities.User, Responses.User.UserDto>();
-            CreateMap<Responses.User.UserDto, Domain.Entities.User>();
+            CreateMap<Domain.Entities.User, DTOs.User.UserDto>();
+            CreateMap<DTOs.User.UserDto, Domain.Entities.User>();
         }
     }
 }

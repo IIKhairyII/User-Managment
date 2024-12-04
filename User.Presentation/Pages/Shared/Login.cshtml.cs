@@ -20,7 +20,6 @@ namespace User.Presentation.Pages.Shared
         {
             try
             {
-
             }
             catch (Exception ex)
             {

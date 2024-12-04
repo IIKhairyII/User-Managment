@@ -2,6 +2,7 @@
 @model User.Presentation.Pages.Shared.RegisterModel
 @{
     Layout = null;
+    var errorMessage = TempData["RegisterFailure"] as string;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +15,12 @@
 </head>
 <body>
     <div class="container mt-5 form-container">
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="alert alert-danger text-center">
+                @errorMessage
+            </div>
+        }
         <h1 class="text-center">Register</h1>
         <form asp-action="Register" asp-controller="Account" method="post">
             <div class="row">
@@ -43,29 +50,32 @@
             <div class="row">
                 <div class="mb-1 col">
                     <label asp-for="UserDto.Password" class="form-label">Password</label>
-                    <input asp-for="UserDto.Password" class="form-control @((ModelState.ContainsKey("UserDto.MathcPasswords") && ModelState["UserDto.MathcPasswords"].Errors.Any()) ||
-                                        (ModelState.ContainsKey("UserDto.Passwords") && ModelState["UserDto.Passwords"].Errors.Any())? "is-invalid" : "")" type="password" required />
+                    <input asp-for="UserDto.Password" required class="form-control @((ModelState.ContainsKey("UserDto.MathcPasswords") && ModelState["UserDto.MathcPasswords"].Errors.Any()) ||
+                                        (ModelState.ContainsKey("UserDto.Passwords") && ModelState["UserDto.Passwords"].Errors.Any()) ||
+                                        (ModelState.ContainsKey("UserDto.Password") && ModelState["UserDto.Password"].Errors.Any())? "is-invalid" : "")" type="password" />
                     <span asp-validation-for="UserDto.Password" class="text-danger"></span>
                 </div>
                 <div class="mb-1 col">
                     <label asp-for="UserDto.ConfirmPassword" class="form-label">Confirm Password</label>
-                    <input asp-for="UserDto.ConfirmPassword" class="form-control @((ModelState.ContainsKey("UserDto.MathcPasswords") && ModelState["UserDto.MathcPasswords"].Errors.Any()) ||
-                                        (ModelState.ContainsKey("UserDto.Passwords") && ModelState["UserDto.Passwords"].Errors.Any())? "is-invalid" : "")" type="password" required />
+                    <input asp-for="UserDto.ConfirmPassword" required class="form-control @((ModelState.ContainsKey("UserDto.MathcPasswords") && ModelState["UserDto.MathcPasswords"].Errors.Any()) ||
+                                        (ModelState.ContainsKey("UserDto.Passwords") && ModelState["UserDto.Passwords"].Errors.Any() ||
+                                        (ModelState.ContainsKey("UserDto.ConfirmPassword") && ModelState["UserDto.ConfirmPassword"].Errors.Any()))? "is-invalid" : "")" type="password" />
                     <span asp-validation-for="UserDto.ConfirmPassword" class="text-danger"></span>
                 </div>
             </div>
-            @if (ModelState.ContainsKey("UserDto.MathcPasswords") && ModelState["UserDto.MathcPasswords"].Errors.Any())
-            {
-                <div class="row justify-content-center">
-                    <span class="invalid-feedback text-start">@ModelState["UserDto.MathcPasswords"].Errors.FirstOrDefault().ErrorMessage</span>
-                </div>
-            }
+            <div class="row justify-content-center">
+                @if (ModelState.ContainsKey("UserDto.MathcPasswords") && ModelState["UserDto.MathcPasswords"].Errors.Any())
+                {
+                    <span class="text-center text-danger">@ModelState["UserDto.MathcPasswords"]?.Errors.FirstOrDefault()?.ErrorMessage</span>
+                }
+            </div>
             <div class="mb-3 col-6">
                 <label asp-for="UserDto.Phone" class="form-label">Phone</label>
                 <input asp-for="UserDto.Phone" class="form-control @(ModelState.ContainsKey("UserDto.Phone") && ModelState["UserDto.Phone"].Errors.Any() ? "is-invalid" : "")" type="tel" />
                 <span asp-validation-for="UserDto.Phone" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-primary w-100">Register</button>
+            <input type="hidden" asp-for="UserDto.IsRegsiter" value="true" />
 
             <div class="container d-flex justify-content-center mt-2">
                 Already have an account??  - Login &nbsp;<a asp-area="" asp-page="/Shared/Login">Here</a>
