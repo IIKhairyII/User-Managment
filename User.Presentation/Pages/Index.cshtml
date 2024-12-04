@@ -60,7 +60,7 @@
                             <div class="mb-1 d-flex flex-column align-items-start">
                                 <label asp-for="UserDto.Password" class="form-label"></label>
                                 <input asp-for="UserDto.Password" type="password" class="form-control @((ModelState.ContainsKey("UserDto.MathcPasswords") && ModelState["UserDto.MathcPasswords"].Errors.Any()) ||
-        (ModelState.ContainsKey("UserDto.Passwords") && ModelState["UserDto.Passwords"].Errors.Any())? "is-invalid" : "")" value="" />
+                                        (ModelState.ContainsKey("UserDto.Passwords") && ModelState["UserDto.Passwords"].Errors.Any())? "is-invalid" : "")" value="" />
                                 <span class="invalid-feedback text-start" asp-validation-for="UserDto.Password"></span>
                             </div>
                             <div class="mb-1 d-flex flex-column align-items-start">

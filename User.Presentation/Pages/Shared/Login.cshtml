@@ -11,91 +11,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            background: #ffffff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-            .login-container h1 {
-                text-align: center;
-                margin-bottom: 20px;
-                font-size: 24px;
-                color: #333333;
-            }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-            .form-group label {
-                display: block;
-                font-size: 14px;
-                color: #555555;
-                margin-bottom: 5px;
-            }
-
-            .form-group input {
-                width: 100%;
-                padding: 10px;
-                font-size: 14px;
-                border: 1px solid #cccccc;
-                border-radius: 5px;
-            }
-
-                .form-group input:focus {
-                    outline: none;
-                    border-color: #007bff;
-                    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-                }
-
-            .form-group button {
-                width: 100%;
-                padding: 10px;
-                font-size: 16px;
-                color: #ffffff;
-                background-color: #007bff;
-                border: none;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-                .form-group button:hover {
-                    background-color: #0056b3;
-                }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 15px;
-        }
-
-            .form-footer a {
-                color: #007bff;
-                text-decoration: none;
-            }
-
-                .form-footer a:hover {
-                    text-decoration: underline;
-                }
-    </style>
+    <link rel="stylesheet" href="~/css/forms.css" />
 </head>
 <body>
-    <div class="login-container">
+    <div class="form-container" style="max-width: 400px;">
         @if (!string.IsNullOrEmpty(errorMessage))
         {
             <div class="alert alert-danger">
@@ -118,6 +37,9 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-primary" type="submit">Login</button>
+            </div>
+            <div class="container d-flex justify-content-center">
+                Don't have an account??  - Sign Up &nbsp;<a asp-area="" asp-page="/Shared/Register">Here</a>
             </div>
         </form>
     </div>
